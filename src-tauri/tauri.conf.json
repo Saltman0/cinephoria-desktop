@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "cinephoria-desktop",
+  "version": "0.1.0",
+  "identifier": "com.cinephoria-desktop.app",
+  "build": {
+    "beforeDevCommand": "deno task start",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "deno task build",
+    "frontendDist": "../dist/cinephoria-desktop/browser"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "cinephoria-desktop",
+        "width": 1280,
+        "height": 832
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}
