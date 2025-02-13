@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { NgOptimizedImage } from "@angular/common";
+import { ApiService } from "../../services/api/api.service";
+import { DatabaseService } from "../../services/database/database.service";
 
 @Component({
   selector: 'app-login',
@@ -15,8 +17,24 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required])
   });
 
+  constructor(private apiService: ApiService, private databaseService: DatabaseService) {}
+
   submit() {
-    alert(this.loginForm.value.email + " " + this.loginForm.value.password);
-    // TODO Effectuer un login vers l'API
+
+    let token;
+
+    this.apiService.login(<string>this.loginForm.value.email, <string>this.loginForm.value.password).subscribe(
+        response => {
+            token = response.value;
+            console.log(token);
+            this.databaseService.loadDatabase();
+            // TODO Récupérer toutes les données
+            this.apiService.getUser(token).subscribe(
+                response => {
+                    console.log(response);
+                }
+            )
+        }
+    );
   }
 }
