@@ -43,10 +43,8 @@ body {
 }
 
 .cinephoria-hall {
-    background-image: url("assets/images/Avengers - Infinity War.png");
     background-color: rgba(0, 0, 0, 0.8);
     background-blend-mode: darken;
-    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     border: 2px solid #F1C40F;
@@ -61,7 +59,7 @@ body {
 .cinephoria-movie-title {
     color: #FFFFFF;
     font-family: Merriweather, sans-serif;
-    font-size: 24px;
+    font-size: 22px;
 }
 
 .cinephoria-showtime {
