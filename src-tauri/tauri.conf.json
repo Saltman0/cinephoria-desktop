@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "cinephoria-desktop",
+        "title": "Cinéphoria Desktop",
         "width": 640,
         "height": 547
       }
