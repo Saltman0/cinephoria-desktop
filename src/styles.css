@@ -74,6 +74,12 @@ body {
     font-size: 16px;
 }
 
+.cinephoria-big-text {
+    color: #FFFFFF;
+    font-family: Raleway, sans-serif;
+    font-size: 24px;
+}
+
 .cinephoria-movie-title {
     color: #FFFFFF;
     font-family: Merriweather, sans-serif;
