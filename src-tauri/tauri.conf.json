@@ -13,8 +13,8 @@
     "windows": [
       {
         "title": "Cinéphoria Desktop",
-        "width": 640,
-        "height": 547
+        "width": 1280,
+        "height": 832
       }
     ],
     "security": {
