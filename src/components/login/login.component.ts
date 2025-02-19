@@ -22,7 +22,9 @@ export class LoginComponent {
 
   submit() {
 
-    let token;
+      this.router.navigate(['hall-list']);
+
+    /*let token;
 
     this.apiService.login(<string>this.loginForm.value.email, <string>this.loginForm.value.password).subscribe(
         response => {
@@ -37,6 +39,6 @@ export class LoginComponent {
                 }
             )
         }
-    );
+    );*/
   }
 }
