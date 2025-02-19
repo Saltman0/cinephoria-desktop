@@ -5,8 +5,9 @@ import { IncidentReportComponent } from "../incident-report/incident-report.comp
 import { LoginComponent } from "../login/login.component";
 
 export const routes: Routes = [
-    { path: 'hall-list-component', component: HallListComponent },
-    { path: 'incident-list-component', component: IncidentListComponent },
-    { path: 'incident-report-component', component: IncidentReportComponent },
-    { path: 'login-component', component: LoginComponent }
+    { path: 'hall-list', title: "Hall list page", component: HallListComponent },
+    { path: 'incident-list', title: "Incident list page", component: IncidentListComponent },
+    { path: 'incident-report', title: "Incident report page", component: IncidentReportComponent },
+    { path: 'login', title: "Login page", component: LoginComponent },
+    { path: '', redirectTo: '/hall-list', pathMatch: 'full' },
 ];
