@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
 import { IncidentComponent } from "../incident/incident.component";
 import {NgOptimizedImage} from "@angular/common";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-incident-list',
   standalone: true,
-  imports: [
-    IncidentComponent,
-    NgOptimizedImage
-  ],
+  imports: [IncidentComponent, NgOptimizedImage],
   templateUrl: './incident-list.component.html',
   styleUrl: './incident-list.component.css'
 })
@@ -25,4 +23,10 @@ export class IncidentListComponent {
           "Urgent !!!", date: "14/04/2025", hour: "13h00" },
     { id: 4, type: "Incident client", description: "Une dispute a éclaté dans la salle.", date: "14/04/2025", hour: "15h00" }
   ];
+
+  constructor(private router: Router) {}
+
+  returnToHallList() {
+    this.router.navigate(['hall-list']);
+  }
 }
