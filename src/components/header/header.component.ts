@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgOptimizedImage } from "@angular/common";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -13,4 +14,14 @@ import { NgOptimizedImage } from "@angular/common";
 export class HeaderComponent {
   firstName: string = "Mathieu";
   lastName: string = "Baudoin";
+
+  constructor(private router: Router) {}
+
+  reportIncident() {
+    this.router.navigate(['incident-report']);
+  }
+
+  disconnect() {
+    this.router.navigate(['login']);
+  }
 }

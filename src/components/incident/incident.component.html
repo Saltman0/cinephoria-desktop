@@ -1,0 +1,24 @@
+<section class="cinephoria-incident flex flex-col">
+
+    <h3 class="cinephoria-incident-header mx-5 my-2">{{ type }}</h3>
+
+    <div class="flex flex-row justify-between mx-5 h-30">
+
+        <div class="flex flex-col justify-between w-4/10">
+            <div class="flex flex-row items-center h-1/2">
+                <img ngSrc="../../assets/images/Calendar.png" alt="Date de l'incident" class="mr-1" width="25" height="25" />
+                <span class="cinephoria-showtime ml-3">{{ date }}</span>
+            </div>
+            <div class="flex flex-row items-center h-1/2">
+                <img ngSrc="../../assets/images/Clock.png" alt="Heure de l'incident" class="mr-1" width="25" height="25" />
+                <span class="cinephoria-showtime text-center ml-3">{{ hour }}</span>
+            </div>
+        </div>
+
+        <div class="flex flex-row justify-center items-center w-6/10">
+            <p class="cinephoria-main-text text-center">{{ description }}</p>
+        </div>
+
+    </div>
+
+</section>

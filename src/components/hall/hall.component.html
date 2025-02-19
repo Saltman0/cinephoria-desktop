@@ -1,4 +1,4 @@
-<div class="flex flex-col cinephoria-hall justify-evenly items-center" style="height: 45dvh; width: 33.33333dvw; background-image: url('assets/images/movies/{{ currentMovieImage }}')">
+<section class="flex flex-col cinephoria-hall h-[45dvh] w-[33.333dvw] justify-evenly items-center" style="background-image: url('assets/images/movies/{{ currentMovieImage }}')">
     <h2 class="cinephoria-hall-number">Salle {{ number }}</h2>
     <h3 class="cinephoria-movie-title">{{ currentMovieTitle }}</h3>
     <div class="flex flex-row justify-center items-center w-100">
@@ -9,4 +9,4 @@
     <button type="button" class="cinephoria-button h-10 w-55" (click)="displayIncidents()">
         <img ngSrc="../../assets/images/Clipboard.png" alt="Afficher les incidents" class="icon" width="20" height="20" /> <span class="ml-7">Afficher les incidents</span>
     </button>
-</div>
+</section>

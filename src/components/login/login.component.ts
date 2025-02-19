@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angula
 import { NgOptimizedImage } from "@angular/common";
 import { ApiService } from "../../services/api/api.service";
 import { DatabaseService } from "../../services/database/database.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -17,11 +18,13 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required])
   });
 
-  constructor(private apiService: ApiService, private databaseService: DatabaseService) {}
+  constructor(private router: Router, private apiService: ApiService, private databaseService: DatabaseService) {}
 
   submit() {
 
-    let token;
+      this.router.navigate(['hall-list']);
+
+    /*let token;
 
     this.apiService.login(<string>this.loginForm.value.email, <string>this.loginForm.value.password).subscribe(
         response => {
@@ -32,9 +35,10 @@ export class LoginComponent {
             this.apiService.getUser(token).subscribe(
                 response => {
                     console.log(response);
+                    this.router.navigate(['hall-list-component']);
                 }
             )
         }
-    );
+    );*/
   }
 }

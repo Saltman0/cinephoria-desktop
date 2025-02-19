@@ -1,0 +1,22 @@
+<main class="flex flex-col justify-evenly items-center h-screen">
+
+    <div class="flex flex-col items-start">
+        <label class="cinephoria-big-text">Type d'incident</label>
+        <input type="text" name="incidentType" id="incidentType"  class="cinephoria-input h-10" required minlength="4" maxlength="20" size="30" />
+    </div>
+
+    <div class="flex flex-col items-start">
+        <label class="cinephoria-big-text">Description</label>
+        <textarea type="text" name="incidentDescription" id="incidentDescription"  class="cinephoria-input" required minlength="4" maxlength="200" rows="5" cols="40"></textarea>
+    </div>
+
+    <div class="flex flex-row justify-evenly w-screen">
+        <button type="button" class="cinephoria-button h-10 w-40" (click)="submitIncident()">
+            <img ngSrc="../../assets/images/Pencil.png" alt="Enregistrer" width="20" height="20" /> <span class="ml-3">Enregistrer</span>
+        </button>
+        <button type="button" class="cinephoria-button h-10 w-40" (click)="returnToHallList()">
+            <img ngSrc="../../assets/images/Left_arrow.png" alt="Retour" width="20" height="20" /> <span class="ml-2">Retour</span>
+        </button>
+    </div>
+
+</main>
