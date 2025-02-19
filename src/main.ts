@@ -1,7 +1,7 @@
 import { bootstrapApplication } from "@angular/platform-browser";
 import { appConfig } from "./components/app/app.config";
-import { HallListComponent } from "./components/hall-list/hall-list.component";
+import { AppComponent } from "./components/app/app.component";
 
-bootstrapApplication(HallListComponent, appConfig).catch((err) =>
+bootstrapApplication(AppComponent, appConfig).catch((err) =>
   console.error(err)
 );
