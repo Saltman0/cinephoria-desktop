@@ -9,5 +9,5 @@ export const routes: Routes = [
     { path: 'incident-list', title: "Incident list page", component: IncidentListComponent },
     { path: 'incident-report', title: "Incident report page", component: IncidentReportComponent },
     { path: 'login', title: "Login page", component: LoginComponent },
-    { path: '', redirectTo: '/hall-list', pathMatch: 'full' },
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
