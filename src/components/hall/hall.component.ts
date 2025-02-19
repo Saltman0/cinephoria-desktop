@@ -1,14 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { NgOptimizedImage, NgStyle } from "@angular/common";
+import { NgOptimizedImage } from "@angular/common";
 import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-hall',
   standalone: true,
-  imports: [
-    NgOptimizedImage,
-    NgStyle
-  ],
+  imports: [NgOptimizedImage],
   templateUrl: './hall.component.html',
   styleUrl: './hall.component.css'
 })
@@ -23,6 +20,6 @@ export class HallComponent {
   constructor(private router: Router) {}
 
   displayIncidents() {
-    this.router.navigate(['incident-list-component']);
+    this.router.navigate(['incident-list']);
   }
 }
