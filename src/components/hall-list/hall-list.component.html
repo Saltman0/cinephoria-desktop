@@ -1,5 +1,5 @@
 <app-header></app-header>
-<main class="flex flex-wrap" style="background-color: #24c8db; /*height: 90dvh;*/">
+<main class="flex flex-wrap">
     @for (hall of hallList; track hall.id;) {
         <app-hall [number]="hall.number" [currentMovieTitle]="hall.currentMovieTitle"
                   [currentMovieImage]="hall.currentMovieImage" [startHour]="hall.startHour" [endHour]="hall.endHour"
