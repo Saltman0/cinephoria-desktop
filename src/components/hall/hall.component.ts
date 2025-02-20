@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NgOptimizedImage } from "@angular/common";
-import { Router } from "@angular/router";
+import { root } from "../app/app.routes";
+import { WebViewWindowService } from "../../services/web-view-window/web-view-window.service";
 
 @Component({
   selector: 'app-hall',
@@ -17,9 +18,16 @@ export class HallComponent {
   @Input() endHour: string = "xxhxx";
   @Input() numberOfIncidents: number = 777;
 
-  constructor(private router: Router) {}
+  constructor(private webViewWindowService: WebViewWindowService) {}
 
-  displayIncidents() {
-    this.router.navigate(['incident-list']);
+  displayIncidents(): void {
+    this.webViewWindowService.createWebviewWindow(
+        'incident-list',
+        root + '/incident-list',
+        'Historique des incidents',
+        640,
+        547,
+        false
+    );
   }
 }
