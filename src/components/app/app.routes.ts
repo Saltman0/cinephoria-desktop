@@ -4,6 +4,8 @@ import { IncidentListComponent } from "../incident-list/incident-list.component"
 import { IncidentReportComponent } from "../incident-report/incident-report.component";
 import { LoginComponent } from "../login/login.component";
 
+export const root: string = "http://localhost:1420/";
+
 export const routes: Routes = [
     { path: 'hall-list', title: "Hall list page", component: HallListComponent },
     { path: 'incident-list', title: "Incident list page", component: IncidentListComponent },
