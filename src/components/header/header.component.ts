@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NgOptimizedImage } from "@angular/common";
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
+import { root } from "../app/app.routes";
+import { WebViewWindowService } from "../../services/web-view-window/web-view-window.service";
 
 @Component({
   selector: 'app-header',
@@ -15,10 +17,17 @@ export class HeaderComponent {
   firstName: string = "Mathieu";
   lastName: string = "Baudoin";
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private webViewWindowService: WebViewWindowService) {}
 
   reportIncident() {
-    this.router.navigate(['incident-report']);
+    this.webViewWindowService.createWebviewWindow(
+        'incident-report',
+        root + '/incident-report',
+        "Signalement d'un incident",
+        640,
+        547,
+        false
+    );
   }
 
   disconnect() {
