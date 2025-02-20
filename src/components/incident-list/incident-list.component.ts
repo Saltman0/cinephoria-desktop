@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IncidentComponent } from "../incident/incident.component";
-import {NgOptimizedImage} from "@angular/common";
+import { NgOptimizedImage } from "@angular/common";
 import { Router } from "@angular/router";
+import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow";
 
 @Component({
   selector: 'app-incident-list',
@@ -27,6 +28,6 @@ export class IncidentListComponent {
   constructor(private router: Router) {}
 
   returnToHallList() {
-    this.router.navigate(['hall-list']);
+    getCurrentWebviewWindow().close();
   }
 }
