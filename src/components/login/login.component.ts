@@ -36,13 +36,17 @@ export class LoginComponent {
     if (jwtToken !== null) {
       this.localStorageService.addJwtToken(jwtToken.value);
 
+      this.databaseService.openDatabase();
+
       const responseUser = await this.apiService.getUser(this.localStorageService.getJwtToken());
 
       this.databaseService.addUser(this.userFactory.create(responseUser.id, responseUser.firstName, responseUser.lastName));
 
       this.databaseService.populateDatabase(await this.apiService.getHalls(1));
+
+      console.log(await this.databaseService.getUser(responseUser.id));
     }
 
-    this.router.navigate(['hall-list']);
+    await this.router.navigate(['hall-list']);
   }
 }

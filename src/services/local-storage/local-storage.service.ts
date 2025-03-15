@@ -13,7 +13,7 @@ export class LocalStorageService {
         localStorage.setItem("jwtToken", jwtToken);
     }
 
-    public deleteJwtToken(id: number): void {
+    public deleteJwtToken(): void {
         localStorage.removeItem("jwtToken");
     }
 

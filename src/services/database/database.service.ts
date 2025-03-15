@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Dexie, { Table } from 'dexie';
+import Dexie, { PromiseExtended, Table } from 'dexie';
 import { User } from "../../models/user.model";
 import { Hall } from "../../models/hall.model";
 import { CurrentShowtime } from "../../models/current-showtime.model";
@@ -32,15 +32,16 @@ export class DatabaseService extends Dexie {
     });
   }
 
+  public openDatabase(): void {
+    this.open();
+  }
+
   public closeDatabase(): void {
     this.close();
-    console.log("DatabaseService closed");
   }
 
   public deleteDatabase(): void {
-    this.closeDatabase();
     this.delete();
-    console.log("Database deleted successfully");
   }
 
   public populateDatabase(halls: Hall[]): void {
@@ -71,12 +72,16 @@ export class DatabaseService extends Dexie {
 
   }
 
-  public addUser(user: User) {
+  public addUser(user: User): void {
     if (this.users.get(user.id) !== null) {
       this.users.delete(user.id);
     }
 
     this.users.add(user, user.id);
+  }
+
+  public getUser(id: number): PromiseExtended<User|undefined> {
+    return this.users.get(id);
   }
 
   public addHall(hall: Hall): void {
