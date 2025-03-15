@@ -43,8 +43,6 @@ export class LoginComponent {
       this.databaseService.addUser(this.userFactory.create(responseUser.id, responseUser.firstName, responseUser.lastName));
 
       this.databaseService.populateDatabase(await this.apiService.getHalls(1));
-
-      console.log(await this.databaseService.getUser(responseUser.id));
     }
 
     await this.router.navigate(['hall-list']);
