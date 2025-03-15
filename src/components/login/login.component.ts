@@ -4,7 +4,8 @@ import { NgOptimizedImage } from "@angular/common";
 import { ApiService } from "../../services/api/api.service";
 import { DatabaseService } from "../../services/database/database.service";
 import { Router } from "@angular/router";
-import {UserFactory} from "../../factories/user.factory";
+import { UserFactory } from "../../factories/user.factory";
+import { LocalStorageService } from "../../services/local-storage/local-storage.service";
 
 @Component({
   selector: 'app-login',
@@ -20,23 +21,28 @@ export class LoginComponent {
   });
 
   constructor(private router: Router,
-              private apiService: ApiService,
-              private databaseService: DatabaseService,
-              private userFactory: UserFactory) {}
+              private readonly apiService: ApiService,
+              private readonly databaseService: DatabaseService,
+              private readonly localStorageService: LocalStorageService,
+              private readonly userFactory: UserFactory) {}
 
   async submit() {
 
-    const response = await this.apiService.login2(<string>this.loginForm.value.email, <string>this.loginForm.value.password);
+    const jwtToken = await this.apiService.login(
+        <string>this.loginForm.value.email,
+        <string>this.loginForm.value.password
+    );
 
-    console.log(response.value);
+    if (jwtToken !== null) {
+      this.localStorageService.addJwtToken(jwtToken.value);
 
-    const responseUser = await this.apiService.getUser(response.value);
+      const responseUser = await this.apiService.getUser(this.localStorageService.getJwtToken());
 
-    console.log(responseUser);
+      this.databaseService.addUser(this.userFactory.create(responseUser.id, responseUser.firstName, responseUser.lastName));
 
-    // TODO Effectuer les différentes requêtes pour stocker dans une BDD locale
-    await this.databaseService.addUser(this.userFactory.create(responseUser.id, response.firstName, response.lastName));
+      this.databaseService.populateDatabase(await this.apiService.getHalls(1));
+    }
 
-    //this.router.navigate(['hall-list']);
+    this.router.navigate(['hall-list']);
   }
 }
