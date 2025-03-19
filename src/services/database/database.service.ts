@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import Dexie, { PromiseExtended, Table } from 'dexie';
-import { User } from "../../models/user.model";
-import { Hall } from "../../models/hall.model";
-import { CurrentShowtime } from "../../models/current-showtime.model";
-import { Movie } from "../../models/movie.model";
-import { Incident } from "../../models/incident.model";
-import { IncidentFactory } from "../../factories/incident.factory";
-import { CurrentShowtimeFactory } from "../../factories/current-showtime.factory";
-import { MovieFactory } from "../../factories/movie.factory";
+import {Injectable} from '@angular/core';
+import Dexie, {PromiseExtended, Table} from 'dexie';
+import {User} from "../../models/user.model";
+import {Hall} from "../../models/hall.model";
+import {CurrentShowtime} from "../../models/current-showtime.model";
+import {Movie} from "../../models/movie.model";
+import {Incident} from "../../models/incident.model";
+import {IncidentFactory} from "../../factories/incident.factory";
+import {CurrentShowtimeFactory} from "../../factories/current-showtime.factory";
+import {MovieFactory} from "../../factories/movie.factory";
 
 @Injectable({
   providedIn: 'root'
@@ -94,6 +94,10 @@ export class DatabaseService extends Dexie {
 
       this.halls.add(hall, hall.id);
     }
+  }
+
+  public getHalls(): PromiseExtended<Hall[]> {
+    return this.halls.toArray();
   }
 
   public addCurrentShowtime(currentShowtime: CurrentShowtime): void {
