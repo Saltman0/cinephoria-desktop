@@ -7,7 +7,7 @@ import { CurrentShowtime } from "../models/current-showtime.model";
 })
 export class MovieFactory {
 
-    public create(id: number, title: string, imageUrl: string, currentShowtime: CurrentShowtime): Movie {
+    public create(id: number|null, title: string, imageUrl: string, currentShowtime: CurrentShowtime): Movie {
         return new Movie(id, title, imageUrl, currentShowtime);
     }
 
