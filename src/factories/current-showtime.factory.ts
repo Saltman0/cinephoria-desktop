@@ -8,7 +8,7 @@ import { Hall } from "../models/hall.model";
 })
 export class CurrentShowtimeFactory {
 
-    public create(id: number, movie: Movie, startTime: Date, endTime: Date, hall: Hall): CurrentShowtime {
+    public create(id: number|null, movie: Movie, startTime: Date, endTime: Date, hall: Hall): CurrentShowtime {
         return new CurrentShowtime(id, movie, startTime, endTime, hall);
     }
 
