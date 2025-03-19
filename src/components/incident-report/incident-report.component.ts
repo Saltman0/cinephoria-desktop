@@ -27,8 +27,8 @@ export class IncidentReportComponent {
 
   submit() {
     // TODO Récupérer les éléments saisis dans le formulaire et le hall concerné
-    const incident = this.incidentFactory.create(null, this.incidentReportForm.get("incidentType"), this.incidentReportForm.get("incidentDescription"), this.databaseService.getHall());
-    this.apiService.postIncident();
+    /*const incident = this.incidentFactory.create(null, this.incidentReportForm.get("incidentType"), this.incidentReportForm.get("incidentDescription"), this.databaseService.getHall());
+    this.apiService.postIncident();*/
     getCurrentWebviewWindow().close();
   }
 
