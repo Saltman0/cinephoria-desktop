@@ -73,11 +73,13 @@ export class DatabaseService extends Dexie {
   }
 
   public addUser(user: User): void {
-    if (this.users.get(user.id) !== null) {
-      this.users.delete(user.id);
-    }
+    if (user.id !== null) {
+      if (this.users.get(user.id) !== null) {
+        this.users.delete(user.id);
+      }
 
-    this.users.add(user, user.id);
+      this.users.add(user, user.id);
+    }
   }
 
   public getUser(id: number): PromiseExtended<User|undefined> {
@@ -85,27 +87,33 @@ export class DatabaseService extends Dexie {
   }
 
   public addHall(hall: Hall): void {
-    if (this.halls.get(hall.id) !== null) {
-      this.halls.delete(hall.id);
-    }
+    if (hall.id !== null) {
+      if (this.halls.get(hall.id) !== null) {
+        this.halls.delete(hall.id);
+      }
 
-    this.halls.add(hall, hall.id);
+      this.halls.add(hall, hall.id);
+    }
   }
 
   public addCurrentShowtime(currentShowtime: CurrentShowtime): void {
-    if (this.currentShowtimes.get(currentShowtime.id) !== null) {
-      this.currentShowtimes.delete(currentShowtime.id);
-    }
+    if (currentShowtime.id !== null) {
+      if (this.currentShowtimes.get(currentShowtime.id) !== null) {
+        this.currentShowtimes.delete(currentShowtime.id);
+      }
 
-    this.currentShowtimes.add(currentShowtime, currentShowtime.id);
+      this.currentShowtimes.add(currentShowtime, currentShowtime.id);
+    }
   }
 
   public addMovie(movie: Movie): void {
-    if (this.movies.get(movie.id) !== null) {
-      this.movies.delete(movie.id);
-    }
+    if (movie.id !== null) {
+      if (this.movies.get(movie.id) !== null) {
+        this.movies.delete(movie.id);
+      }
 
-    this.movies.add(movie, movie.id);
+      this.movies.add(movie, movie.id);
+    }
   }
 
   public addIncident(incident: Incident): void {
