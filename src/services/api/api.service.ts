@@ -5,6 +5,7 @@ import { Hall } from "../../models/hall.model";
 import { GetHallsGQL } from "../../graphql/get-halls.gql";
 import { HallFactory } from "../../factories/hall.factory";
 import { Apollo } from "apollo-angular";
+import { Incident } from "../../models/incident.model";
 
 @Injectable({
   providedIn: 'root'
@@ -61,6 +62,23 @@ export class ApiService {
     });
 
     return halls;
+  }
+
+  public async postIncident(incident: Incident, token: string) {
+    const response: Response = await fetch(this.apiUrl + "incident", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({"type": incident.type, "description": incident.description, "hall": incident.hall}),
+    });
+
+    if (!response.ok) {
+      throw new Error(response.status.toString());
+    }
+
+    return response.json();
   }
 
 }
