@@ -109,10 +109,12 @@ export class DatabaseService extends Dexie {
   }
 
   public addIncident(incident: Incident): void {
-    if (this.incidents.get(incident.id) !== null) {
-      this.incidents.delete(incident.id);
-    }
+    if (incident.id !== null) {
+      if (this.incidents.get(incident.id) !== null) {
+        this.incidents.delete(incident.id);
+      }
 
-    this.incidents.add(incident, incident.id);
+      this.incidents.add(incident, incident.id);
+    }
   }
 }
