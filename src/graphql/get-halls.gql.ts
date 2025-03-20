@@ -11,7 +11,7 @@ export interface Response {
 })
 export class GetHallsGQL extends Query<Response> {
     document = gql`
-        query GetHalls($cinemaId: ID!) {
+        query GetHalls($cinemaId: Int!) {
             halls(cinemaId: $cinemaId) {
                 id
                 number
