@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NgOptimizedImage } from "@angular/common";
-import { Router } from "@angular/router";
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ApiService } from "../../services/api/api.service";
-import {IncidentFactory} from "../../factories/incident.factory";
-import {DatabaseService} from "../../services/database/database.service";
+import { IncidentFactory } from "../../factories/incident.factory";
+import { DatabaseService } from "../../services/database/database.service";
+import { Hall } from "../../models/hall.model";
 
 @Component({
   selector: 'app-incident-report',
@@ -16,20 +16,42 @@ import {DatabaseService} from "../../services/database/database.service";
 })
 export class IncidentReportComponent {
   incidentReportForm = new FormGroup({
-    incidentType: new FormControl('', [Validators.required, Validators.email]),
-    incidentDescription: new FormControl('', [Validators.required, Validators.email])
+    selectedHallNumber: new FormControl("", [Validators.required]),
+    incidentType: new FormControl('', [Validators.required]),
+    incidentDescription: new FormControl('', [Validators.required])
   });
+  
+  hallList: Hall[] = [];
 
-  constructor(private readonly router: Router,
-              private readonly incidentFactory: IncidentFactory,
+  constructor(private readonly incidentFactory: IncidentFactory,
               private readonly databaseService: DatabaseService,
               private readonly apiService: ApiService) {}
 
-  submit() {
+  async ngOnInit(): Promise<void> {
+    const halls: Hall[] = await this.databaseService.getHalls();
+    halls.forEach(hall => {
+      this.hallList.push(hall);
+    });
+  }
+
+  async submit() {
     // TODO Récupérer les éléments saisis dans le formulaire et le hall concerné
-    /*const incident = this.incidentFactory.create(null, this.incidentReportForm.get("incidentType"), this.incidentReportForm.get("incidentDescription"), this.databaseService.getHall());
-    this.apiService.postIncident();*/
-    getCurrentWebviewWindow().close();
+    const selectedHallNumber = <string>this.incidentReportForm.get("selectedHallNumber")?.value;
+    const incidentType = <string>this.incidentReportForm.get("incidentType")?.value;
+    const incidentDescription = <string>this.incidentReportForm.get("incidentDescription")?.value;
+
+    console.log(incidentType, incidentDescription, parseInt(selectedHallNumber));
+
+
+    const incident = this.incidentFactory.create(
+        null,
+        incidentType,
+        incidentDescription,
+        <Hall>await this.databaseService.getHall(parseInt(selectedHallNumber))
+    );
+    console.log(incident);
+    /*this.apiService.postIncident();
+    getCurrentWebviewWindow().close();*/
   }
 
   returnToHallList() {
