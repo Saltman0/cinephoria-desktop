@@ -4,7 +4,6 @@ import { fetch } from "@tauri-apps/plugin-http";
 import { Hall } from "../../models/hall.model";
 import { GetHallsGQL } from "../../graphql/get-halls.gql";
 import { HallFactory } from "../../factories/hall.factory";
-import { Apollo } from "apollo-angular";
 import { Incident } from "../../models/incident.model";
 
 @Injectable({
@@ -14,7 +13,7 @@ export class ApiService {
 
   private apiUrl = 'http://172.18.0.6/';
 
-  constructor(private readonly getHallsGQL: GetHallsGQL, private readonly apollo: Apollo, private hallFactory: HallFactory) {}
+  constructor(private readonly getHallsGQL: GetHallsGQL, private readonly hallFactory: HallFactory) {}
 
   public async login(email: string, password: string): Promise<any> {
     const response = await fetch(this.apiUrl + "login", {
