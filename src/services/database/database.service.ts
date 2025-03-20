@@ -100,6 +100,10 @@ export class DatabaseService extends Dexie {
     return this.halls.toArray();
   }
 
+  public getHall(id: number): PromiseExtended<Hall|undefined> {
+    return this.halls.get(id);
+  }
+
   public addCurrentShowtime(currentShowtime: CurrentShowtime): void {
     if (currentShowtime.id !== null) {
       if (this.currentShowtimes.get(currentShowtime.id) !== null) {
