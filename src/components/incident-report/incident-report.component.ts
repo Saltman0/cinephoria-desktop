@@ -5,6 +5,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angula
 import { ApiService } from "../../services/api/api.service";
 import { IncidentFactory } from "../../factories/incident.factory";
 import { DatabaseService } from "../../services/database/database.service";
+import { LocalStorageService } from "../../services/local-storage/local-storage.service";
 import { Hall } from "../../models/hall.model";
 
 @Component({
@@ -25,7 +26,8 @@ export class IncidentReportComponent {
 
   constructor(private readonly incidentFactory: IncidentFactory,
               private readonly databaseService: DatabaseService,
-              private readonly apiService: ApiService) {}
+              private readonly apiService: ApiService,
+              private readonly localStorageService: LocalStorageService) {}
 
   async ngOnInit(): Promise<void> {
     const halls: Hall[] = await this.databaseService.getHalls();
@@ -35,13 +37,9 @@ export class IncidentReportComponent {
   }
 
   async submit() {
-    // TODO Récupérer les éléments saisis dans le formulaire et le hall concerné
     const selectedHallNumber = <string>this.incidentReportForm.get("selectedHallNumber")?.value;
     const incidentType = <string>this.incidentReportForm.get("incidentType")?.value;
     const incidentDescription = <string>this.incidentReportForm.get("incidentDescription")?.value;
-
-    console.log(incidentType, incidentDescription, parseInt(selectedHallNumber));
-
 
     const incident = this.incidentFactory.create(
         null,
@@ -49,9 +47,9 @@ export class IncidentReportComponent {
         incidentDescription,
         <Hall>await this.databaseService.getHall(parseInt(selectedHallNumber))
     );
-    console.log(incident);
-    /*this.apiService.postIncident();
-    getCurrentWebviewWindow().close();*/
+    await this.apiService.postIncident(incident, this.localStorageService.getJwtToken());
+    await getCurrentWebviewWindow().close();
+
   }
 
   returnToHallList() {
