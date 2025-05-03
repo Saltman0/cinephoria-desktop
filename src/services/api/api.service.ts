@@ -70,7 +70,7 @@ export class ApiService {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({"type": incident.type, "description": incident.description, "hall": incident.hall}),
+      body: JSON.stringify({"type": incident.type, "description": incident.description, "hallId": incident.hall.id}),
     });
 
     if (!response.ok) {
