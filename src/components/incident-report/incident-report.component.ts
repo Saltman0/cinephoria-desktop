@@ -52,11 +52,15 @@ export class IncidentReportComponent {
     await this.apiService.postIncident(incident, this.localStorageService.getJwtToken());
     this.databaseService.addIncident(incident);
 
-    await getCurrentWebviewWindow().close();
-    await this.router.navigate(['hall-list']);
+    await this.closeAndNavigateToHallList();
   }
 
-  returnToHallList() {
-    getCurrentWebviewWindow().close();
+  async returnToHallList() {
+    await this.closeAndNavigateToHallList();
+  }
+
+  async closeAndNavigateToHallList() {
+    await getCurrentWebviewWindow().close();
+    await this.router.navigate(['hall-list']);
   }
 }
