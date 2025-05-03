@@ -22,7 +22,6 @@ export class HallListComponent {
 
     async ngOnInit(): Promise<void> {
         const halls: Hall[] = await this.databaseService.getHalls();
-        console.log(halls);
         halls.forEach(hall => {
             this.hallList.push(this.hallRenderer.render(hall));
         });
