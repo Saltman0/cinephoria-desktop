@@ -18,7 +18,7 @@ export class HallComponent {
   @Input() endHour: string = "xxhxx";
   @Input() numberOfIncidents: number = 777;
 
-  constructor(private webViewWindowService: WebViewWindowService) {}
+  constructor(private readonly webViewWindowService: WebViewWindowService) {}
 
   displayIncidents(): void {
     this.webViewWindowService.createWebviewWindow(
