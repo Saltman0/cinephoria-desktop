@@ -124,6 +124,10 @@ export class DatabaseService extends Dexie {
     }
   }
 
+  public getIncidents(): PromiseExtended<Incident[]> {
+    return this.incidents.toArray();
+  }
+
   public addIncident(incident: Incident): void {
     if (incident.id !== null) {
       if (this.incidents.get(incident.id) !== null) {
