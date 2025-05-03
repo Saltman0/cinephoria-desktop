@@ -7,6 +7,7 @@ import { IncidentFactory } from "../../factories/incident.factory";
 import { DatabaseService } from "../../services/database/database.service";
 import { LocalStorageService } from "../../services/local-storage/local-storage.service";
 import { Hall } from "../../models/hall.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-incident-report',
@@ -21,13 +22,14 @@ export class IncidentReportComponent {
     incidentType: new FormControl('', [Validators.required]),
     incidentDescription: new FormControl('', [Validators.required])
   });
-  
+
   hallList: Hall[] = [];
 
   constructor(private readonly incidentFactory: IncidentFactory,
               private readonly databaseService: DatabaseService,
               private readonly apiService: ApiService,
-              private readonly localStorageService: LocalStorageService) {}
+              private readonly localStorageService: LocalStorageService,
+              private readonly router: Router) {}
 
   async ngOnInit(): Promise<void> {
     const halls: Hall[] = await this.databaseService.getHalls();
@@ -48,8 +50,10 @@ export class IncidentReportComponent {
         <Hall>await this.databaseService.getHall(parseInt(selectedHallNumber))
     );
     await this.apiService.postIncident(incident, this.localStorageService.getJwtToken());
-    await getCurrentWebviewWindow().close();
+    this.databaseService.addIncident(incident);
 
+    await getCurrentWebviewWindow().close();
+    await this.router.navigate(['hall-list']);
   }
 
   returnToHallList() {
