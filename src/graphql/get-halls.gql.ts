@@ -29,7 +29,10 @@ export class GetHallsGQL extends Query<Response> {
                     id
                     type
                     description
+                    solved
+                    date
                 }
+                projectionQuality
             }
         }
     `;

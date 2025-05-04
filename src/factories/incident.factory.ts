@@ -7,8 +7,9 @@ import { Hall } from "../models/hall.model";
 })
 export class IncidentFactory {
 
-    public create(id: number|null, type: string, description: string, hall: Hall): Incident {
-        return new Incident(id, type, description, hall);
+    public create(id: number|null, type: string, description: string, date: Date,
+                  solved: boolean, hall: Hall): Incident {
+        return new Incident(id, type, description, date, solved, hall);
     }
 
 }

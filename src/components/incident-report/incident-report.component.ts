@@ -42,11 +42,15 @@ export class IncidentReportComponent {
     const selectedHallNumber = <string>this.incidentReportForm.get("selectedHallNumber")?.value;
     const incidentType = <string>this.incidentReportForm.get("incidentType")?.value;
     const incidentDescription = <string>this.incidentReportForm.get("incidentDescription")?.value;
+    const incidentDate = new Date();
+    const incidentSolved = false;
 
     const incident = this.incidentFactory.create(
         null,
         incidentType,
         incidentDescription,
+        incidentDate,
+        incidentSolved,
         <Hall>await this.databaseService.getHall(parseInt(selectedHallNumber))
     );
     await this.apiService.postIncident(incident, this.localStorageService.getJwtToken());

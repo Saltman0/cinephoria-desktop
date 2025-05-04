@@ -65,7 +65,16 @@ export class DatabaseService extends Dexie {
       }
 
       hall.incidents.forEach((incident: Incident) => {
-        this.addIncident(this.incidentFactory.create(incident.id, incident.type, incident.description, hall));
+        this.addIncident(
+            this.incidentFactory.create(
+                incident.id,
+                incident.type,
+                incident.description,
+                incident.date,
+                incident.solved,
+                hall
+            )
+        );
       });
 
     });

@@ -1,6 +1,10 @@
 <main class="h-[85dvh] overflow-auto">
     @for (incident of incidentList; track incident.id;) {
-        <app-incident [type]="incident.type" [description]="incident.description" [date]="incident.date" [hour]="incident.hour"></app-incident>
+        <app-incident [type]="incident.type"
+                      [description]="incident.description"
+                      [date]="incident.date"
+                      [hour]="incident.hour">
+        </app-incident>
     } @empty {
         Aucun incident dans cette salle.
     }
