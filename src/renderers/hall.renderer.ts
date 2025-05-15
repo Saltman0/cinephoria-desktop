@@ -1,6 +1,7 @@
-import { Injectable } from "@angular/core";
-import { Hall } from "../models/hall.model";
-import { CurrentShowtime } from "../models/current-showtime.model";
+import {Injectable} from "@angular/core";
+import {Hall} from "../models/hall.model";
+import {CurrentShowtime} from "../models/current-showtime.model";
+import {Movie} from "../models/movie.model";
 
 @Injectable({
     providedIn: 'root'
@@ -8,17 +9,20 @@ import { CurrentShowtime } from "../models/current-showtime.model";
 export class HallRenderer {
 
     public render(hall: Hall) {
-
         const currentShowtime: CurrentShowtime|null = hall.currentShowtime;
-        let currentMovieTitle: string|null = null;
-        let currentMovieImage: string|null = null;
-        let startHour: string|null = null;
-        let endHour: string|null = null;
+
+        let currentMovieTitle: string | null = null;
+        let currentMovieImage: string | null = null;
+        let startHour: string | null = null;
+        let endHour: string | null = null;
         if (currentShowtime !== null) {
-            currentMovieTitle = currentShowtime.movie.title;
-            currentMovieImage = currentShowtime.movie.imageUrl;
-            startHour = currentShowtime.startTime.getHours().toString();
-            endHour = currentShowtime.endTime.getHours().toString();
+
+            const movie: Movie|null = currentShowtime.movie;
+
+            currentMovieTitle = movie.title;
+            currentMovieImage = movie.imageURL;
+            startHour = new Date(currentShowtime.startTime).getHours().toString();
+            endHour = new Date(currentShowtime.endTime).getHours().toString();
         }
 
         return {
