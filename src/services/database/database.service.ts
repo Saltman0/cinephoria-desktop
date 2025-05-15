@@ -24,11 +24,11 @@ export class DatabaseService extends Dexie {
                      private readonly incidentFactory: IncidentFactory) {
     super('CinephoriaDatabase');
     this.version(1).stores({
-      users: '++id, firstName, lastName',
-      halls: '++id, number, currentShowtime, movie',
-      currentShowtimes: '++id, movie, startTime, endTime',
-      movies: '++id, title, imageUrl',
-      incidents: '++id, type, description'
+      users: '++id',
+      halls: '++id, currentShowtime',
+      currentShowtimes: '++id, hall',
+      movies: '++id, currentShowtime',
+      incidents: '++id, hall'
     });
   }
 
@@ -44,27 +44,31 @@ export class DatabaseService extends Dexie {
     this.delete();
   }
 
-  public populateDatabase(halls: Hall[]): void {
+  public async populateDatabase(halls: Hall[]): Promise<void> {
 
-    halls.forEach((hall: Hall) => {
+    for (const hall of halls) {
 
-      this.addHall(hall);
+      const currentShowtime: CurrentShowtime|null = hall.currentShowtime ?? null;
 
-      const currentShowtime: CurrentShowtime|null = hall.currentShowtime;
       if (currentShowtime !== null) {
+
+        const movie: Movie|null = currentShowtime.movie;
+
         this.addCurrentShowtime(
             this.currentShowtimeFactory.create(
-                currentShowtime.id, currentShowtime.movie, currentShowtime.startTime, currentShowtime.endTime, hall
+                currentShowtime.id, currentShowtime.movie, new Date(currentShowtime.startTime),
+                new Date(currentShowtime.endTime), hall
             )
         );
 
-        const movie: Movie|null = currentShowtime.movie;
         if (movie !== null) {
-          this.addMovie(this.movieFactory.create(movie.id, movie.title, movie.imageUrl, movie.currentShowtime));
+          this.addMovie(this.movieFactory.create(movie.id, movie.title, movie.imageURL, currentShowtime));
         }
+
       }
 
-      hall.incidents.forEach((incident: Incident) => {
+      const incidents: Incident[] = hall.incidents;
+      incidents.forEach((incident: Incident): void => {
         this.addIncident(
             this.incidentFactory.create(
                 incident.id,
@@ -77,7 +81,9 @@ export class DatabaseService extends Dexie {
         );
       });
 
-    });
+      this.addHall(hall);
+
+    }
 
   }
 
@@ -113,6 +119,10 @@ export class DatabaseService extends Dexie {
     return this.halls.get(id);
   }
 
+  public getCurrentShowtime(id: number): PromiseExtended<CurrentShowtime|undefined> {
+    return this.currentShowtimes.get(id);
+  }
+
   public addCurrentShowtime(currentShowtime: CurrentShowtime): void {
     if (currentShowtime.id !== null) {
       if (this.currentShowtimes.get(currentShowtime.id) !== null) {
@@ -121,6 +131,10 @@ export class DatabaseService extends Dexie {
 
       this.currentShowtimes.add(currentShowtime, currentShowtime.id);
     }
+  }
+
+  public getMovie(id: number): PromiseExtended<Movie|undefined> {
+    return this.movies.get(id);
   }
 
   public addMovie(movie: Movie): void {
@@ -135,6 +149,10 @@ export class DatabaseService extends Dexie {
 
   public getIncidents(): PromiseExtended<Incident[]> {
     return this.incidents.toArray();
+  }
+
+  public getIncidentsByHallId(hallId: number): PromiseExtended<Incident[]> {
+    return this.incidents.where("hall").equals(hallId).toArray();
   }
 
   public addIncident(incident: Incident): void {
