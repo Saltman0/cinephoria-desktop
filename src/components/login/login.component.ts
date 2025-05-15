@@ -42,7 +42,9 @@ export class LoginComponent {
 
       this.databaseService.addUser(this.userFactory.create(responseUser.id, responseUser.firstName, responseUser.lastName));
 
-      this.databaseService.populateDatabase(await this.apiService.getHalls(1));
+      const halls = await this.apiService.getHalls(1);
+
+      await this.databaseService.populateDatabase(halls);
     }
 
     await this.router.navigate(['hall-list']);
