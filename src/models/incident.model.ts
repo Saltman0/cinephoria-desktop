@@ -1,4 +1,4 @@
-import { Hall } from "./hall.model";
+import {Hall} from "./hall.model";
 
 export class Incident {
     id: number|null;

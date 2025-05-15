@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { Movie } from "../models/movie.model";
-import { CurrentShowtime } from "../models/current-showtime.model";
-import { Hall } from "../models/hall.model";
+import {Injectable} from "@angular/core";
+import {CurrentShowtime} from "../models/current-showtime.model";
+import {Hall} from "../models/hall.model";
+import {Movie} from "../models/movie.model";
 
 @Injectable({
     providedIn: 'root'
