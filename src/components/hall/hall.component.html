@@ -3,7 +3,7 @@
     <h3 class="cinephoria-movie-title">{{ currentMovieTitle }}</h3>
     <div class="flex flex-row justify-center items-center w-100">
         <img ngSrc="../../assets/images/Clock.png" alt="Horaires du film" class="mr-1" width="25" height="25" />
-        <span class="cinephoria-showtime ml-1">{{ startHour }} - {{ endHour }}</span>
+        <span class="cinephoria-showtime ml-1">{{ startHour }}h{{ startMinute }} - {{ endHour }}h{{ endMinute }}</span>
     </div>
     <p class="cinephoria-alert">{{ numberOfIncidents }} incident(s) en cours</p>
     <button type="button" class="cinephoria-button h-10 w-55" (click)="displayIncidents()">

@@ -14,15 +14,19 @@ export class HallRenderer {
         let currentMovieTitle: string | null = null;
         let currentMovieImage: string | null = null;
         let startHour: string | null = null;
+        let startMinute: string | null = null;
         let endHour: string | null = null;
+        let endMinute: string | null = null;
         if (currentShowtime !== null) {
 
             const movie: Movie|null = currentShowtime.movie;
 
             currentMovieTitle = movie.title;
             currentMovieImage = movie.imageURL;
-            startHour = new Date(currentShowtime.startTime).getHours().toString();
-            endHour = new Date(currentShowtime.endTime).getHours().toString();
+            startHour = new Date(currentShowtime.startTime).getHours().toString().padStart(2, "0");
+            startMinute = new Date(currentShowtime.startTime).getMinutes().toString().padStart(2, "0");
+            endHour = new Date(currentShowtime.endTime).getHours().toString().padStart(2, "0");
+            endMinute = new Date(currentShowtime.endTime).getMinutes().toString().padStart(2, "0");
         }
 
         return {
@@ -31,7 +35,9 @@ export class HallRenderer {
             currentMovieTitle: currentMovieTitle,
             currentMovieImage: currentMovieImage,
             startHour: startHour,
+            startMinute: startMinute,
             endHour: endHour,
+            endMinute: endMinute,
             numberOfIncidents: hall.incidents.length
         }
     }

@@ -14,8 +14,10 @@ export class HallComponent {
   @Input() number: number = 777;
   @Input() currentMovieTitle: string = "Nom du film actuel";
   @Input() currentMovieImage: string = "Image du film actuel";
-  @Input() startHour: string = "xxhxx";
-  @Input() endHour: string = "xxhxx";
+  @Input() startHour: string = "xx";
+  @Input() startMinute: string = "xx";
+  @Input() endHour: string = "xx";
+  @Input() endMinute: string = "xx";
   @Input() numberOfIncidents: number = 777;
 
   constructor(private readonly webViewWindowService: WebViewWindowService) {}

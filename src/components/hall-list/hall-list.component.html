@@ -2,8 +2,9 @@
 <main class="flex flex-wrap">
     @for (hall of hallList; track hall.id;) {
         <app-hall [number]="hall.number" [currentMovieTitle]="hall.currentMovieTitle"
-                  [currentMovieImage]="hall.currentMovieImage" [startHour]="hall.startHour" [endHour]="hall.endHour"
-                  [numberOfIncidents]="hall.numberOfIncidents">
+                  [currentMovieImage]="hall.currentMovieImage"
+                  [startHour]="hall.startHour" [startMinute]="hall.startMinute"
+                  [endHour]="hall.endHour" [endMinute]="hall.endMinute" [numberOfIncidents]="hall.numberOfIncidents">
         </app-hall>
     } @empty {
         Aucune salle dans ce cinéma.
