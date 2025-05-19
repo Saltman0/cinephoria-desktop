@@ -73,13 +73,14 @@ export class ApiService {
       body: JSON.stringify({
         "type": incident.type,
         "description": incident.description,
-        "date": incident.date,
+        "date": incident.date.toString(),
         "solved": incident.solved,
         "hallId": incident.hall.id
       })
     });
 
     if (!response.ok) {
+      console.log(response.json());
       throw new Error(response.status.toString());
     }
 
