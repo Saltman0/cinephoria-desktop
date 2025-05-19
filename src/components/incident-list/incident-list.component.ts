@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { IncidentComponent } from "../incident/incident.component";
 import { NgOptimizedImage } from "@angular/common";
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow";
-import {DatabaseService} from "../../services/database/database.service";
-import {Incident} from "../../models/incident.model";
-import {IncidentRenderer} from "../../renderers/incident.renderer";
+import { DatabaseService } from "../../services/database/database.service";
+import { Incident } from "../../models/incident.model";
+import { IncidentRenderer } from "../../renderers/incident.renderer";
 
 @Component({
   selector: 'app-incident-list',
@@ -26,8 +26,8 @@ export class IncidentListComponent {
     });
   }
 
-  returnToHallList() {
-    getCurrentWebviewWindow().close();
+  async returnToHallList() {
+    await getCurrentWebviewWindow().close();
   }
 
 }
