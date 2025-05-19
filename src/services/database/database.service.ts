@@ -74,7 +74,7 @@ export class DatabaseService extends Dexie {
                 incident.id,
                 incident.type,
                 incident.description,
-                incident.date,
+                new Date(incident.date),
                 incident.solved,
                 hall
             )
