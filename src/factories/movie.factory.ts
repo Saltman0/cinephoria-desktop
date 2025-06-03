@@ -1,14 +1,18 @@
 import {Injectable} from "@angular/core";
-import {Movie} from "../models/movie.model";
-import {CurrentShowtime} from "../models/current-showtime.model";
+import {Movie} from "../services/database/database.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class MovieFactory {
 
-    public create(id: number|null, title: string, imageURL: string, currentShowtime: CurrentShowtime): Movie {
-        return new Movie(id, title, imageURL, currentShowtime);
+    public create(id: number, title: string, imageURL: string, currentShowtimeId: number): Movie {
+        return {
+            id: id,
+            title: title,
+            imageURL: imageURL,
+            currentShowtimeId: currentShowtimeId
+        }
     }
 
 }

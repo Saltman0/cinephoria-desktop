@@ -1,14 +1,14 @@
-import { Movie } from "./movie.model";
-import { Hall } from "./hall.model";
+import { MovieModel } from "./movie.model";
+import { HallModel } from "./hall.model";
 
-export class CurrentShowtime {
-    id: number|null;
-    movie: Movie;
+export class CurrentShowtimeModel {
+    id: number;
+    movie: MovieModel;
     startTime: Date;
     endTime: Date;
-    hall: Hall;
+    hall: HallModel;
 
-    constructor(id: number|null, movie: Movie, startTime: Date, endTime: Date, hall: Hall) {
+    constructor(id: number, movie: MovieModel, startTime: Date, endTime: Date, hall: HallModel) {
         this.id = id;
         this.movie = movie;
         this.startTime = startTime;

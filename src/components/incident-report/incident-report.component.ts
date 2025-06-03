@@ -1,13 +1,12 @@
-import { Component } from '@angular/core';
-import { NgOptimizedImage } from "@angular/common";
-import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow";
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { ApiService } from "../../services/api/api.service";
-import { IncidentFactory } from "../../factories/incident.factory";
-import { DatabaseService } from "../../services/database/database.service";
-import { LocalStorageService } from "../../services/local-storage/local-storage.service";
-import { Hall } from "../../models/hall.model";
-import { Router } from "@angular/router";
+import {Component} from '@angular/core';
+import {NgOptimizedImage} from "@angular/common";
+import {getCurrentWebviewWindow} from "@tauri-apps/api/webviewWindow";
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {ApiService} from "../../services/api/api.service";
+import {IncidentFactory} from "../../factories/incident.factory";
+import {DatabaseService, Hall, Incident} from "../../services/database/database.service";
+import {LocalStorageService} from "../../services/local-storage/local-storage.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-incident-report',
@@ -45,13 +44,13 @@ export class IncidentReportComponent {
     const incidentDate = new Date();
     const incidentSolved = false;
 
-    const incident = this.incidentFactory.create(
+    const incident: Incident = this.incidentFactory.create(
         null,
         incidentType,
         incidentDescription,
         incidentDate,
         incidentSolved,
-        <Hall>await this.databaseService.getHall(parseInt(selectedHallNumber))
+        parseInt(selectedHallNumber)
     );
     await this.apiService.postIncident(incident, this.localStorageService.getJwtToken());
     this.databaseService.addIncident(incident);

@@ -6,7 +6,7 @@
         <span class="cinephoria-showtime ml-1">{{ startHour }}h{{ startMinute }} - {{ endHour }}h{{ endMinute }}</span>
     </div>
     <p class="cinephoria-alert">{{ numberOfIncidents }} incident(s) en cours</p>
-    <button type="button" class="cinephoria-button h-10 w-55" (click)="displayIncidents()">
+    <button type="button" class="cinephoria-button h-10 w-55" (click)="displayIncidents(id)">
         <img ngSrc="../../assets/images/Clipboard.png" alt="Afficher les incidents" class="icon" width="20" height="20" /> <span class="ml-7">Afficher les incidents</span>
     </button>
 </section>

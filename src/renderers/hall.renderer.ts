@@ -1,15 +1,15 @@
 import {Injectable} from "@angular/core";
-import {Hall} from "../models/hall.model";
-import {CurrentShowtime} from "../models/current-showtime.model";
-import {Movie} from "../models/movie.model";
+import {CurrentShowtime, DatabaseService, Hall, Incident, Movie} from "../services/database/database.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class HallRenderer {
 
-    public render(hall: Hall) {
-        const currentShowtime: CurrentShowtime|null = hall.currentShowtime;
+    private constructor(private readonly databaseService: DatabaseService) {}
+
+    public async render(hall: Hall) {
+        const currentShowtimeId: number|null = hall.currentShowtimeId;
 
         let currentMovieTitle: string | null = null;
         let currentMovieImage: string | null = null;
@@ -17,17 +17,27 @@ export class HallRenderer {
         let startMinute: string | null = null;
         let endHour: string | null = null;
         let endMinute: string | null = null;
-        if (currentShowtime !== null) {
+        if (currentShowtimeId !== null) {
+            const currentShowtime: CurrentShowtime|null =
+                await this.databaseService.getCurrentShowtime(currentShowtimeId) ?? null;
 
-            const movie: Movie|null = currentShowtime.movie;
+            if (currentShowtime !== null) {
 
-            currentMovieTitle = movie.title;
-            currentMovieImage = movie.imageURL;
-            startHour = new Date(currentShowtime.startTime).getHours().toString().padStart(2, "0");
-            startMinute = new Date(currentShowtime.startTime).getMinutes().toString().padStart(2, "0");
-            endHour = new Date(currentShowtime.endTime).getHours().toString().padStart(2, "0");
-            endMinute = new Date(currentShowtime.endTime).getMinutes().toString().padStart(2, "0");
+                const movie: Movie|null = await this.databaseService.getMovie(currentShowtime.movieId) ?? null;
+
+                if (movie !== null) {
+                    currentMovieTitle = movie.title;
+                    currentMovieImage = movie.imageURL;
+                }
+
+                startHour = new Date(currentShowtime.startTime).getHours().toString().padStart(2, "0");
+                startMinute = new Date(currentShowtime.startTime).getMinutes().toString().padStart(2, "0");
+                endHour = new Date(currentShowtime.endTime).getHours().toString().padStart(2, "0");
+                endMinute = new Date(currentShowtime.endTime).getMinutes().toString().padStart(2, "0");
+            }
         }
+
+        const incidents: Incident[] = await this.databaseService.getIncidentsByHallId(hall.id);
 
         return {
             id: hall.id,
@@ -38,7 +48,7 @@ export class HallRenderer {
             startMinute: startMinute,
             endHour: endHour,
             endMinute: endMinute,
-            numberOfIncidents: hall.incidents.length
+            numberOfIncidents: incidents.length
         }
     }
 

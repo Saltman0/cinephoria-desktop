@@ -1,9 +1,9 @@
 import { gql, Query } from 'apollo-angular';
 import { Injectable } from '@angular/core';
-import {Hall} from "../models/hall.model";
+import {HallModel} from "../models/hall.model";
 
 export interface Response {
-    halls: Hall[];
+    halls: HallModel[];
 }
 
 @Injectable({

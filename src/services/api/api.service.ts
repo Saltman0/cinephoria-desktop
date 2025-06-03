@@ -1,22 +1,22 @@
-import { Injectable } from '@angular/core';
-import { jwtDecode } from "jwt-decode";
-import { fetch } from "@tauri-apps/plugin-http";
-import { Hall } from "../../models/hall.model";
-import { GetHallsGQL } from "../../graphql/get-halls.gql";
-import { HallFactory } from "../../factories/hall.factory";
-import { Incident } from "../../models/incident.model";
+import {Injectable} from '@angular/core';
+import {jwtDecode} from "jwt-decode";
+import {fetch} from "@tauri-apps/plugin-http";
+import {HallModel} from "../../models/hall.model";
+import {GetHallsGQL} from "../../graphql/get-halls.gql";
+import {HallFactory} from "../../factories/hall.factory";
+import {Incident} from "../database/database.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  private apiUrl = 'http://172.18.0.6/';
+  private readonly apiUrl: string = 'http://172.18.0.6/';
 
   constructor(private readonly getHallsGQL: GetHallsGQL, private readonly hallFactory: HallFactory) {}
 
   public async login(email: string, password: string): Promise<any> {
-    const response = await fetch(this.apiUrl + "login", {
+    const response: Response = await fetch(this.apiUrl + "login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +31,7 @@ export class ApiService {
     return response.json();
   }
 
-  public async getUser(token: string) {
+  public async getUser(token: string): Promise<any> {
     const userId: number = jwtDecode<{id: number}>(token).id;
     const response: Response = await fetch(this.apiUrl + `user/${userId}`, {
       method: "GET",
@@ -48,22 +48,38 @@ export class ApiService {
     return response.json();
   }
 
-  public async getHalls(cinemaId: number) {
+  public async getHalls(cinemaId: number): Promise<HallModel[]> {
 
-    let halls: Hall[] = [];
+    let halls: HallModel[] = [];
 
     let result = await this.getHallsGQL.watch(
         { cinemaId: cinemaId }
     ).result();
 
-    result.data.halls.forEach((hall: Hall) => {
-      halls.push(this.hallFactory.create(hall.id, hall.number, hall.currentShowtime, hall.incidents));
+    result.data.halls.forEach((hall: HallModel) => {
+      halls.push(this.hallFactory.createModel(hall.id, hall.number, hall.currentShowtime, hall.incidents));
     });
 
     return halls;
   }
 
-  public async postIncident(incident: Incident, token: string) {
+  public async getIncidents(hallId: number, token: string): Promise<any> {
+    const response: Response = await fetch(this.apiUrl + `hall/${hallId}/incident`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(response.status.toString());
+    }
+
+    return response.json();
+  }
+
+  public async postIncident(incident: Incident, token: string): Promise<any> {
     const response: Response = await fetch(this.apiUrl + "incident", {
       method: "POST",
       headers: {
@@ -75,12 +91,11 @@ export class ApiService {
         "description": incident.description,
         "date": incident.date.toString(),
         "solved": incident.solved,
-        "hallId": incident.hall.id
+        "hallId": incident.hallId
       })
     });
 
     if (!response.ok) {
-      console.log(response.json());
       throw new Error(response.status.toString());
     }
 

@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
-import { HeaderComponent } from "../header/header.component";
-import { HallComponent } from "../hall/hall.component";
-import { DatabaseService } from "../../services/database/database.service";
+import {Component} from '@angular/core';
+import {HeaderComponent} from "../header/header.component";
+import {HallComponent} from "../hall/hall.component";
+import {DatabaseService, Hall} from "../../services/database/database.service";
 import {HallRenderer} from "../../renderers/hall.renderer";
-import {Hall} from "../../models/hall.model";
 
 @Component({
   selector: 'app-hall-list',
@@ -22,8 +21,8 @@ export class HallListComponent {
 
     async ngOnInit(): Promise<void> {
         const halls: Hall[] = await this.databaseService.getHalls();
-        halls.forEach(hall => {
-            this.hallList.push(this.hallRenderer.render(hall));
-        });
+        for (const hall of halls) {
+            this.hallList.push(await this.hallRenderer.render(hall));
+        }
     }
 }

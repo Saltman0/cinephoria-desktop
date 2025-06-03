@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { IncidentComponent } from "../incident/incident.component";
-import { NgOptimizedImage } from "@angular/common";
-import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow";
-import {DatabaseService} from "../../services/database/database.service";
-import {Incident} from "../../models/incident.model";
+import {Component} from '@angular/core';
+import {IncidentComponent} from "../incident/incident.component";
+import {NgOptimizedImage} from "@angular/common";
+import {getCurrentWebviewWindow} from "@tauri-apps/api/webviewWindow";
+import {DatabaseService, Incident} from "../../services/database/database.service";
 import {IncidentRenderer} from "../../renderers/incident.renderer";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-incident-list',
@@ -17,17 +17,22 @@ export class IncidentListComponent {
 
   incidentList: any[] = [];
 
-  constructor(private readonly databaseService: DatabaseService, private readonly incidentRenderer: IncidentRenderer) {}
+  constructor(
+      private readonly databaseService: DatabaseService,
+      private readonly incidentRenderer: IncidentRenderer,
+      private route: ActivatedRoute) {}
 
   async ngOnInit(): Promise<void> {
-    const incidents: Incident[] = await this.databaseService.getIncidents();
+    const hallId: number = parseInt(<string>this.route.snapshot.paramMap.get("hallId"));
+    const incidents: Incident[] = await this.databaseService.getIncidentsByHallId(hallId);
+
     incidents.forEach(incident => {
       this.incidentList.push(this.incidentRenderer.render(incident));
     });
   }
 
-  returnToHallList() {
-    getCurrentWebviewWindow().close();
+  async returnToHallList() {
+    await getCurrentWebviewWindow().close();
   }
 
 }

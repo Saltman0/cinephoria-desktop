@@ -1,14 +1,14 @@
-import {Hall} from "./hall.model";
+import {HallModel} from "./hall.model";
 
-export class Incident {
+export class IncidentModel {
     id: number|null;
     type: string;
     description: string;
     date: Date;
     solved: boolean;
-    hall: Hall;
+    hall: HallModel;
 
-    constructor(id: number|null, type: string, description: string, date: Date, solved: boolean, hall: Hall) {
+    constructor(id: number|null, type: string, description: string, date: Date, solved: boolean, hall: HallModel) {
         this.id = id;
         this.type = type;
         this.description = description;

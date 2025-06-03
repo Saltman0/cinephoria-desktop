@@ -8,7 +8,7 @@ export const root: string = "http://localhost:1420/";
 
 export const routes: Routes = [
     { path: 'hall-list', title: "Hall list page", component: HallListComponent },
-    { path: 'incident-list', title: "Incident list page", component: IncidentListComponent },
+    { path: 'incident-list/:hallId', title: "Incident list page", component: IncidentListComponent },
     { path: 'incident-report', title: "Incident report page", component: IncidentReportComponent },
     { path: 'login', title: "Login page", component: LoginComponent },
     { path: '', redirectTo: '/login', pathMatch: 'full' },
