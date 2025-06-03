@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Incident} from "../models/incident.model";
+import {Incident} from "../services/database/database.service";
 
 @Injectable({
     providedIn: 'root'
@@ -7,16 +7,23 @@ import {Incident} from "../models/incident.model";
 export class IncidentRenderer {
 
     public render(incident: Incident) {
-        const date = incident.date;
+        const incidentDate = new Date(incident.date);
+
+        const day: string = incidentDate.getDate().toString().padStart(2, "0");
+        const month: string = (incidentDate.getMonth() + 1).toString().padStart(2, "0");
+        const year: string = incidentDate.getFullYear().toString().padStart(2, "0");
+
+
+        const hour: string = incidentDate.getHours().toString().padStart(2, "0");
+        const minute: string = incidentDate.getMinutes().toString().padStart(2, "0");
 
         return {
             id: incident.id,
             type: incident.type,
             description: incident.description,
-            date: date.getDate().toString().padStart(2, "0")
-                + "/" + date.getMonth().toString().padStart(2, "0")
-                + "/" + date.getFullYear().toString().padStart(2, "0"),
-            hour: date.getHours().toString().padStart(2, "0") + "h" + date.getMinutes().toString().padStart(2, "0")
+            date: day + "/" + month + "/" + year,
+            hour: hour,
+            minute: minute
         }
     }
 

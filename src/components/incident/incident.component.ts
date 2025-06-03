@@ -15,4 +15,5 @@ export class IncidentComponent {
   @Input() description: string = "Description de l'incident";
   @Input() date: string = "Date de l'incident";
   @Input() hour: string = "Heure de l'incident";
+  @Input() minute: string = "Minute de l'incident";
 }

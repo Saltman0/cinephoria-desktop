@@ -1,5 +1,5 @@
-import { User } from "../models/user.model";
-import { Injectable } from "@angular/core";
+import {Injectable} from "@angular/core";
+import {User} from "../services/database/database.service";
 
 @Injectable({
     providedIn: 'root'
@@ -7,7 +7,11 @@ import { Injectable } from "@angular/core";
 export class UserFactory {
 
     public create(id: number, firstName: string, lastName: string): User {
-        return new User(id, firstName, lastName);
+        return {
+            id: id,
+            firstName: firstName,
+            lastName: lastName
+        }
     }
 
 }

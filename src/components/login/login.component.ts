@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { NgOptimizedImage } from "@angular/common";
-import { ApiService } from "../../services/api/api.service";
-import { DatabaseService } from "../../services/database/database.service";
-import { Router } from "@angular/router";
-import { UserFactory } from "../../factories/user.factory";
-import { LocalStorageService } from "../../services/local-storage/local-storage.service";
+import {Component} from '@angular/core';
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {NgOptimizedImage} from "@angular/common";
+import {ApiService} from "../../services/api/api.service";
+import {DatabaseService} from "../../services/database/database.service";
+import {Router} from "@angular/router";
+import {LocalStorageService} from "../../services/local-storage/local-storage.service";
 
 @Component({
   selector: 'app-login',
@@ -23,8 +22,7 @@ export class LoginComponent {
   constructor(private router: Router,
               private readonly apiService: ApiService,
               private readonly databaseService: DatabaseService,
-              private readonly localStorageService: LocalStorageService,
-              private readonly userFactory: UserFactory) {}
+              private readonly localStorageService: LocalStorageService) {}
 
   async submit() {
 
@@ -38,13 +36,7 @@ export class LoginComponent {
 
       this.databaseService.openDatabase();
 
-      const responseUser = await this.apiService.getUser(this.localStorageService.getJwtToken());
-
-      this.databaseService.addUser(this.userFactory.create(responseUser.id, responseUser.firstName, responseUser.lastName));
-
-      const halls = await this.apiService.getHalls(1);
-
-      await this.databaseService.populateDatabase(halls);
+      await this.databaseService.populateDatabase();
     }
 
     await this.router.navigate(['hall-list']);
