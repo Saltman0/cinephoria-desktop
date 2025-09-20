@@ -5,9 +5,10 @@ Application de bureau destiné à afficher/signaler les incidents.
 
 ## Installation
 
-### Logiciels
+### Pré-requis
 - [Angular](https://angular.dev/)
-- [Deno](https://pnpm.io/)
+- [Node.js](https://nodejs.org/)
+- [Deno](https://deno.com/)
 - [Cargo](https://crates.io/)
 
 ### Librairies
@@ -24,8 +25,8 @@ deno install --allow-scripts
 
 ### Variables d'environnement
 
-Vous aurez besoin de modifier le fichier `env.ts` pour que l'application bureautique se connecte correctement aux 
-différents microservices de Cinéphoria.
+Vous aurez besoin de modifier les variables d'environnement du fichier `env.ts` pour que l'application bureautique 
+se connecte correctement aux différents microservices de Cinéphoria.
 
 ## Déploiement en local
 
