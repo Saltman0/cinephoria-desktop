@@ -5,18 +5,20 @@ import {HallModel} from "../../models/hall.model";
 import {GetHallsGQL} from "../../graphql/get-halls.gql";
 import {HallFactory} from "../../factories/hall.factory";
 import {Incident} from "../database/database.service";
+import * as process from "process";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  private readonly apiUrl: string = 'http://172.18.0.6/';
+  private readonly infrastructureApiUrl: string = process.env.INFRASTRUCTURE_API_URL;
+  private readonly userApiUrl: string = process.env.USER_API_URL;
 
   constructor(private readonly getHallsGQL: GetHallsGQL, private readonly hallFactory: HallFactory) {}
 
   public async login(email: string, password: string): Promise<any> {
-    const response: Response = await fetch(this.apiUrl + "login", {
+    const response: Response = await fetch(this.userApiUrl + "login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +35,7 @@ export class ApiService {
 
   public async getUser(token: string): Promise<any> {
     const userId: number = jwtDecode<{id: number}>(token).id;
-    const response: Response = await fetch(this.apiUrl + `user/${userId}`, {
+    const response: Response = await fetch(this.userApiUrl + `user/${userId}`, {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -64,7 +66,7 @@ export class ApiService {
   }
 
   public async getIncidents(hallId: number, token: string): Promise<any> {
-    const response: Response = await fetch(this.apiUrl + `hall/${hallId}/incident`, {
+    const response: Response = await fetch(this.infrastructureApiUrl + `hall/${hallId}/incident`, {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -80,7 +82,7 @@ export class ApiService {
   }
 
   public async postIncident(incident: Incident, token: string): Promise<any> {
-    const response: Response = await fetch(this.apiUrl + "incident", {
+    const response: Response = await fetch(this.infrastructureApiUrl + "incident", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${token}`,
