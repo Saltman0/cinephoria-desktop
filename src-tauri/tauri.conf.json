@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "identifier": "com.cinephoria-desktop.app",
   "build": {
-    "beforeDevCommand": "deno task start",
+    "beforeDevCommand": "npm run start",
     "devUrl": "http://localhost:1420",
     "beforeBuildCommand": "deno task build",
     "frontendDist": "../dist/cinephoria-desktop/browser"
