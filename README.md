@@ -6,7 +6,7 @@ Application de bureau destiné à afficher/signaler les incidents.
 ## Installation
 
 ### Pré-requis
-- [Angular](https://angular.dev/)
+- [Angular](https://angular.dev/) `npm install -g @angular/cli`
 - [Node.js](https://nodejs.org/)
 - [Deno](https://deno.com/)
 - [Cargo](https://crates.io/)
