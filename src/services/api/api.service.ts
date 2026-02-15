@@ -5,15 +5,15 @@ import {HallModel} from "../../models/hall.model";
 import {GetHallsGQL} from "../../graphql/get-halls.gql";
 import {HallFactory} from "../../factories/hall.factory";
 import {Incident} from "../database/database.service";
-import {environmentVariables} from "../../env";
+import {environment} from "../../env";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  private readonly infrastructureApiUrl: string = environmentVariables.INFRASTRUCTURE_API_URL;
-  private readonly userApiUrl: string = environmentVariables.USER_API_URL;
+  private readonly infrastructureApiUrl: string = environment.INFRASTRUCTURE_API_URL;
+  private readonly userApiUrl: string = environment.USER_API_URL;
 
   constructor(private readonly getHallsGQL: GetHallsGQL, private readonly hallFactory: HallFactory) {}
 
